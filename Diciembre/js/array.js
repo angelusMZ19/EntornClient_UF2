@@ -28,7 +28,7 @@ function operacionesConColores() {
     document.write("<b>6</b>.Uso de el metodo at():  "+ "<b>"+color+ "</b>"+ "<br>");
 }
 function metodosArray(){
-     //cabe aclar que el => es usado para resumir la function en js 
+    //cabe aclarar que el => es usado para resumir la function en js 
     //array en uso
     let nombres = ["Neus", "Oreo", "Rulo", "Vero", "Joana", "Oscar", "Adria", "Gemma"];
     document.write("El array a usar contiene : [ "+nombres+ " ]<br>");
@@ -171,5 +171,32 @@ function metodosArray(){
     nombres.fill("☺", 2, 6);
     document.write("<b>28</b>.Uso de el metodo fill():  "+ "<b>"+ nombres + "</b>"+ "<br>");
 
+    //array restructurado
+    let nomen = ["Neus", "Oreo", "Rulo", "Vero", "Joana", "Oscar", "Adria", "Gemma"];
+
+    // some()
+    let encuentraAlguno = nomen.some(elemento => elemento == "Oscar");
+    document.write("<b>29</b>.Uso de el metodo some:  "+ "<b>"+ encuentraAlguno  + "</b>"+ "<br>");
+
+    // sort()
+    let orden = nomen.sort();
+    document.write("<b>30</b>.Uso de el metodo sort():  "+ "<b>"+ orden + "</b>"+ "<br>");
+
+    // splice()
+    nomen.splice(2, 1, "♪"); 
+    document.write("<b>31</b>.Uso de el metodo splice():  "+ "<b>"+ nomen + "</b>"+ "<br>"); 
+
+    // toString()
+    let cadena = nomen.toString();
+    document.write("<b>32</b>.Uso de el metodo fill():  "+ "<b>"+ cadena + "</b>"+ "<br>");
+
+    // unshift()
+    let newLong= nomen.unshift("ANGELO");
+    document.write("<b>33</b>.Uso de el metodo unshift():  "+ "<b>"+ newLong + "</b>"+ "<br>");
+    document.write("<b>"+ nomen + "</b>"+ "<br>");
+
+    // valueOf()
+    let valor = nomen.valueOf();
+    document.write("<b>34</b>.Uso de el metodo valueOf():  "+ "<b>"+ valor + "</b>"+ "<br>");
 
 }
