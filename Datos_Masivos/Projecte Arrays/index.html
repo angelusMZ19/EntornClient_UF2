@@ -6,10 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Document</title>
 	<script src="js/script.js"></script>
+	<link rel="stylesheet" href="js/diseño.css">
 
 </head>
 <body>
-	<table id="tabla_Pokemons">
+	<!-- <table id="tabla_Pokemons">
 		<tr style="border:2px black solid">
 			<th> POKEMON </th>
 			<th> MUNICIPIO</th>
@@ -17,9 +18,49 @@
 			<th> EARTH-METEORIT</th>
 		</tr>
 		<tr>
+			<td> hey </td>
+			<td> im</td>
+			<td> here</td>
 			<td> hey im here</td>
 		</tr>
-	</table>
+	</table> -->
+
+	<div id="botones">
+		<button id="tabla" onclick="creaTabla()">Iniciar</button>
+		<button id="butt" onclick="refresca()">Refrecar</button>
+		<button id="butt" onclick="orderListAsc()">Orden Ascendente</button>
+		<button id="butt" onclick="orderListDesc()">Orden Descendente</button>
+		<button id="butt" onclick="searchList()">Buscar</button>
+		<button id="butt" onclick="calcMitjana()">Calcular Media</button>
+		<p id="mitjana"></p>
+	</div>
+
+	<div id="botones objetos">
+		<button type="radio" id="pokemons" name="datos" value="pokemons">
+		<label for="pokemons">Pokémons</label><br></button>
+
+		<button type="radio" id="municipis" name="datos" value="municipis">
+		<label for="municipis">Municipis</label><br></button>
+
+		<button type="radio" id="meteorits" name="datos" value="meteorits">
+		<label for="meteorits">Meteorits</label><br></button>
+
+		<button type="radio" id="movies" name="datos" value="movies">
+		<label for="movies">Movies</label></button>
+	</div>
+	
+	<div id="resultat">
+		
+	</div>
 	<div id="resultat"></div>
 </body>
 </html>
+
+ 
+<!-- // function orderListAsc(combinedData){
+	//   combinedData.reverse();
+	// }
+  
+	// function orderListDesc(combinedData){
+	//   combinedData.sort();
+	// } -->

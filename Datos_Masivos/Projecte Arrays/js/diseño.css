@@ -1,0 +1,19 @@
+body{
+    background-color: rgb(255, 255, 255);
+}
+#botones{
+    padding: 10px 20px;
+    background-color: #fffcd5;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#butt{
+    padding: 10px 20px;
+    background-color: #198596;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+   
+}
