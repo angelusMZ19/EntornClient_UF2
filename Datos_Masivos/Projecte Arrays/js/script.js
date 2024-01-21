@@ -4,6 +4,7 @@ let pokemons=[];
 let municipis = [];
 let meteorits = [];
 let movies = [];
+let taula = [];
 
 // POKEMONS
 fetch("js/data/pokemon.json")
@@ -13,11 +14,11 @@ fetch("js/data/pokemon.json")
 
     dades.forEach(datos => {
       let infoPokemon = [];
-      
-      infoPokemon[0] = datos.img; 
+       
+      infoPokemon[0] = datos.num;      
       infoPokemon[1] = datos.name;
-      infoPokemon[2] = datos.num; 
-      infoPokemon[3] = datos.weight
+      infoPokemon[2] = datos.img;
+      infoPokemon[3] = datos.weight;
   
       pokemons.push(infoPokemon);
     });
@@ -32,10 +33,10 @@ fetch("js/data/municipis.json")
     dades.forEach(datos => {
       let infoMunicipios = [];
       
-      infoMunicipios[0] = datos.img;
-      infoMunicipios[1] = datos.name; 
-      infoMunicipios[2] = datos.num; 
-      infoMunicipios[3] = datos.weight
+      infoMunicipios[0] = datos.ine;
+      infoMunicipios[1] = datos.municipi_nom;
+      infoMunicipios[2] = datos.municipi_escut;
+      infoMunicipios[3] = datos.nombre_habitants;
   
       municipis.push(infoMunicipios);
     });
@@ -50,10 +51,10 @@ fetch("js/data/earthMeteorites.json")
     dades.forEach(datos => {
       let infoMeteoritos = [];
       
-      infoMeteoritos[0] = datos.img;
-      infoMeteoritos[1] = datos.name; 
-      infoMeteoritos[2] = datos.num; 
-      infoMeteoritos[3] = datos.weight
+      infoMeteoritos[0] = datos.id; 
+      infoMeteoritos[1] = datos.name;
+      infoMeteoritos[2] = datos.year;
+      infoMeteoritos[3] = datos.mass;
   
       meteorits.push(infoMeteoritos);
     });
@@ -68,72 +69,66 @@ fetch("js/data/movies.json")
     dades.forEach(datos => {
       let infoMovies = [];
       
-      infoMovies[0] = datos.img;
-      infoMovies[1] = datos.name; 
-      infoMovies[2] = datos.num; 
-      infoMovies[3] = datos.weight
+      infoMovies[0] = datos.year;
+      infoMovies[1] = datos.title;
+      infoMovies[2] = datos.url; 
+      infoMovies[3] = datos.rating;
   
       movies.push(infoMovies);
     });
     
   });
-/* if (pokemons && municipis && meteorits && movies) {
-      const combined = pokemons.map((pokemons, index) => {
-        return {
-          pokemon: pokemons.name,
-          municipi: municipis[index].municipi_nom,
-          earthMeteorite: meteorits[index].name,
-          movie: movies[index].title
-        };
-      });
-      console.table(combined);
-    }*/
 
-  //////////////////////////////////////////////////////////////////////////////////
-  /*function creaTabla() {
-    console.clear();
-    let tabla = [];
-    for (let i = 0; i < 1000; i++) {
-      let dades = [
-        pokemons[i],
-        municipis[i],
-        meteorits[i],
-        movies[i]
-      ];
-      tabla.push(dades);
+
+  /*________________________________________________________________________*/
+
+
+function creaTabla(categoria) {
+  document.getElementById("tabla").innerHTML = "";
+  
+  taula = []; //limpia la tabla
+  
+  let seleccion;
+  if (categoria === "pokemons") seleccion = pokemons;
+  else if (categoria === "municipis") seleccion = municipis;
+  else if (categoria === "meteorits") seleccion = meteorits;
+  else if (categoria === "movies") seleccion = movies;
+
+  for (let i = 0; i < 1000; i++) {
+    let dades = seleccion[i] || [];
+    taula.push(dades);
+  }
+
+  let tablaHTML = "<table border='1' >";
+  tablaHTML += "<tr><th>Num</th><th>Name</th><th>Image</th><th>caractersitic</th></tr>";
+
+  for (let i = 0; i < taula.length; i++) {
+    tablaHTML += "<tr>";
+    for (let j = 0; j < taula[i].length; j++) {
+      if (j === 2) {
+        tablaHTML += "<td><img src='" + taula[i][j] + "' alt='Image' style='max-width: 100px; max-height: 100px;'></td>";
+      } else {
+        tablaHTML += "<td>" + taula[i][j] + "</td>";
+      }
     }
-    //console.table(tabla);
-    document.getElementById("tabla").innerHTML = tabla; 
-    return tabla;
-  }*/
-  function creaTabla() {
-	console.clear()
-	for (let i = 0; i < 1000; i++) {
-		let dades = [];
-		dades[0] = pokemons[i],
-		dades[1] = municipis[i],
-		dades[2] = meteorits[i],
-		dades[3] = movies[i]
-
-		taula[i] = dades;
-	};
-	console.table(taula);
-	printList(getDades()); // Printea la tabla en pantalla
+    tablaHTML += "</tr>";
+  }
+  tablaHTML += "</table>";
+  document.getElementById("tabla").innerHTML = tablaHTML;
 }
   
   
-  
-  function refresca() {
-    location.reload();
-  }
 
+function refresca() {
+  location.reload();
+}
 
-  function orderListAsc() {
-    pokemons.sort();
-    municipis.sort();
-    meteorits.sort();
-    movies.sort();
-    creaTabla();
+function orderListAsc() {
+  pokemons.sort();
+  municipis.sort();
+  meteorits.sort();
+  movies.sort();
+  creaTabla();
 }
 
 function orderListDesc() {
@@ -144,29 +139,36 @@ function orderListDesc() {
   creaTabla();
 }
 
-
 function searchList() {
-    const searchTerm = prompt("Introdueix el valor a buscar:");
-    const resultIndex = pokemons.indexOf(parseInt(searchTerm));
-    
-    if (resultIndex !== -1) {
-        alert("Valor trobat a la posició " + resultIndex);
-    } else {
-        alert("Valor no trobat en l'array");
-    }
+  const searchTerm = prompt("Introduce el valor a buscar:");
+  const resultIndex = pokemons.indexOf(parseInt(searchTerm));
+
+  if (resultIndex !== -1) {
+    alert("Valor encontrado en la posición " + resultIndex);
+  } else {
+    alert("Valor no encontrado en el array");
+  }
 }
 
-function calcMitjana() {
-	let mitjana = 0;
-	getDades().forEach(datos => {
-		
-		if (datos[3] != undefined) mitjana += parseInt(datos[3]);
-	});
-	mitjana /= getDades().length;
-	mitjana = mitjana.toFixed(2);
-	
-	let p = document.getElementById('mitjana');
-	if (getRadioButton() == 'pokemons' || getRadioButton()=='meteorits') p.innerHTML=mitjana+' kg';
-	if (getRadioButton() == 'municipis')  p.innerHTML = mitjana + ' habitants';
-	if (getRadioButton() == 'movies') p.innerHTML = mitjana + ' punts';
+function calcMitjana(categoria) {
+  let mitjana = 0;
+  let datos = taula;
+
+  datos.forEach((element) => {
+    if (element[3] !== undefined) mitjana += parseInt(element[3]);
+  });
+
+  mitjana /= datos.length;
+  mitjana = mitjana.toFixed(2);
+
+  let p = document.getElementById('mitjana');
+  if (categoria === 'pokemons' || categoria === 'meteorits') {
+    p.innerHTML = mitjana + ' kg';
+  }
+  if (categoria === 'municipis') {
+    p.innerHTML = mitjana + ' habitants';
+  }
+  if (categoria === 'movies') {
+    p.innerHTML = mitjana + ' punts';
+  }
 }

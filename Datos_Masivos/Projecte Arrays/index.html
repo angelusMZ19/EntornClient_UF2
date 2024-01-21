@@ -26,7 +26,7 @@
 	</table> -->
 
 	<div id="botones">
-		<button id="tabla" onclick="creaTabla()">Iniciar</button>
+		<!-- <button id="tabla" onclick="creaTabla()">Iniciar</button> -->
 		<button id="butt" onclick="refresca()">Refrecar</button>
 		<button id="butt" onclick="orderListAsc()">Orden Ascendente</button>
 		<button id="butt" onclick="orderListDesc()">Orden Descendente</button>
@@ -35,19 +35,12 @@
 		<p id="mitjana"></p>
 	</div>
 
-	<div id="botones objetos">
-		<button type="radio" id="pokemons" name="datos" value="pokemons">
-		<label for="pokemons">Pokémons</label><br></button>
+	<button onclick="creaTabla('pokemons')">Pokemons</button>
+	<button onclick="creaTabla('municipis')">Municipis</button>
+	<button onclick="creaTabla('meteorits')">Meteorits</button>
+	<button onclick="creaTabla('movies')">Movies</button>
 
-		<button type="radio" id="municipis" name="datos" value="municipis">
-		<label for="municipis">Municipis</label><br></button>
-
-		<button type="radio" id="meteorits" name="datos" value="meteorits">
-		<label for="meteorits">Meteorits</label><br></button>
-
-		<button type="radio" id="movies" name="datos" value="movies">
-		<label for="movies">Movies</label></button>
-	</div>
+	<div id="tabla"></div>
 	
 	<div id="resultat">
 		

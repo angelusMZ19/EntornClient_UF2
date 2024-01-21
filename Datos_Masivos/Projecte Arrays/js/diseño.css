@@ -1,4 +1,4 @@
-body{
+/*body{
     background-color: rgb(255, 255, 255);
 }
 #botones{
@@ -24,4 +24,35 @@ body{
     border: none;
     border-radius: 5px;
    
-}
+}*/
+/*#tabla{
+
+}*/
+/* Estilo para la tabla */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    
+  }
+  
+  /* Estilo para las celdas */
+  table, th, td {
+    border: 3px solid black;
+    
+  }
+  
+  /* Estilo para los encabezados */
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  /* Estilo para las imágenes dentro de las celdas */
+  td img {
+    max-width: 100px;
+    max-height: 100px;
+    display: block;
+    margin: auto;
+  }
+  
