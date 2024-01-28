@@ -1,59 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
-	<script src="js/script.js"></script>
-	<link rel="stylesheet" href="js/diseño.css">
-
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="js/diseño.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-	<!-- <table id="tabla_Pokemons">
-		<tr style="border:2px black solid">
-			<th> POKEMON </th>
-			<th> MUNICIPIO</th>
-			<th> PELICULAS</th>
-			<th> EARTH-METEORIT</th>
-		</tr>
-		<tr>
-			<td> hey </td>
-			<td> im</td>
-			<td> here</td>
-			<td> hey im here</td>
-		</tr>
-	</table> -->
+    
+    <button onclick="refresh()">Refresca</button>
+    <button onclick="orderListASC()">Ordena Ascendent</button>
+    <button onclick="orderListDESC()">Ordena Descendent</button>
+    <button onclick="searchList()">Cerca</button>
+    <button onclick="calcMitjana()">Calcula Mitjana</button>
+    <!-- <button onclick="printList()">Imprimeix Taula</button> -->
 
-	<div id="botones">
-		<!-- <button id="tabla" onclick="creaTabla()">Iniciar</button> -->
-		<button id="butt" onclick="refresca()">Refrecar</button>
-		<button id="butt" onclick="orderListAsc()">Orden Ascendente</button>
-		<button id="butt" onclick="orderListDesc()">Orden Descendente</button>
-		<button id="butt" onclick="searchList()">Buscar</button>
-		<button id="butt" onclick="calcMitjana()">Calcular Media</button>
-		<p id="mitjana"></p>
-	</div>
+    <div>
+        <label for="CategoriasTabla">Categorias:</label>
+        <select type="text" name="categorias" id="categorias" onchange="cambiarCategoria()">
+			<option>selecciona...</option>
+            <option value="pokemons">Pokemons</option>
+            <option value="municipis">Municipis</option>
+            <option value="meteorits">Meteorits</option>
+            <option value="movies">Movies</option>
+        </select>
+    </div>
 
-	<button onclick="creaTabla('pokemons')">Pokemons</button>
-	<button onclick="creaTabla('municipis')">Municipis</button>
-	<button onclick="creaTabla('meteorits')">Meteorits</button>
-	<button onclick="creaTabla('movies')">Movies</button>
+    <div id="tabla">Muy buenas seleccione una categoria para comenzar</div>
+    <p id="mitjana"></p>
+    <div class="chart-container" style="position: relative; width:1000px">
+        <canvas id="myChart" width="400" height="400"></canvas>
 
-	<div id="tabla"></div>
-	
-	<div id="resultat">
-		
-	</div>
-	<div id="resultat"></div>
+    </div>
+
+    <script src="js/script.js"></script>
 </body>
 </html>
-
- 
-<!-- // function orderListAsc(combinedData){
-	//   combinedData.reverse();
-	// }
-  
-	// function orderListDesc(combinedData){
-	//   combinedData.sort();
-	// } -->
