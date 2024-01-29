@@ -1,5 +1,18 @@
 let llistatCicles = [];
 
+class Cicle{//paso1
+    constructor(nom, categoria, numAlumnes, abreviatura) {//paso2
+        this.nom = nom;
+        this.categoria = categoria;
+        this.numAlumnes = numAlumnes;
+        this.abreviatura = abreviatura;
+        this.numEdicions = 0;//paso 3
+        this.lastEditDate = null;
+        this.moduls = [];
+    }
+}
+
+
 function afegirCicle(){
     let nom = document.getElementById("cicle_nom").value;
     let categoria = document.getElementById("cicle_categoria").value;
