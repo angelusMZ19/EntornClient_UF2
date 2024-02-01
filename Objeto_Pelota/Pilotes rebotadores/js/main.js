@@ -1,27 +1,62 @@
-// Preparació del canvas ----------------------
-/* Obté una referència a <canvas>, després crida al mètode getContext()
-  per definir un context al el que es pot començar a dibuisar
-  (ctx) és un objecte que representa l'àrea de dibuix del 
-  <canvas> y permet dibuixar elements 2D al damunt.
+import { Pilota } from './pilota.js';
 
-  width and height són dreceres a l'ample i alt del canvas  que coincideixen
-  amb l'alt i ample del navegador (viewport)
-*/
-const canvas = document.querySelector('canvas');
-const ctx = canvas.getContext('2d');
+document.addEventListener("DOMContentLoaded", () => {
+  let canvas = document.getElementById("canvas");
+  let context = canvas.getContext("2d");
+  let pelotas = [];
 
-const width = (canvas.width = window.innerWidth);
-const height = (canvas.height = window.innerHeight);
+  crearArray();
 
-// funció per generar un número aleatori entre dues xifres
+  function loop() {
+    context.fillStyle = "black";
+    context.fillRect(0, 0, canvas.width, canvas.height);
 
-function random(min, max) {
-  const num = Math.floor(Math.random() * (max - min + 1)) + min;
-  return num;
+   
+
+    pelotas.forEach(pilota => {
+      pilota.dibujar(context);
+      pilota.mover(canvas); 
+    });
+
+    detectarColision();
+
+    requestAnimationFrame(loop);
+  }
+  function crearArray(){
+    for (let i = 0; i < 25; i++) {
+      let mida = Math.random() * 10 + 10;//genera aleatoriamente el tamaño de las pelotas
+      let x = Math.random() * (canvas.width - mida * 2) + mida;
+      let y = Math.random() * (canvas.height - mida * 2) + mida;
+      let velocidadX = (Math.random() - 2) * 5;
+      let velocidadY = (Math.random() - 2) * 5;
+      let color = getRandomColor();
+  
+      pelotas.push(new Pilota(x, y, velocidadX, velocidadY, color, mida));
+    }
+  }
+  
+
+  function detectarColision() {
+    for (let i = 0; i < pelotas.length; i++) {
+      for (let j = i + 1; j < pelotas.length; j++) {
+        if (colision(pelotas[i], pelotas[j])) {
+          pelotas[i].color = getRandomColor();
+          pelotas[j].color = getRandomColor();
+        }
+      }
+    }
+  }
+
+function colision(p1, p2) {
+  let distancia = Math.sqrt((p1.x - p2.x)**2 + (p1.y - p2.y)**2);
+    if(distancia < p1.radi + p2.radi){
+      return distancia;
+    }
+}
+  loop();
+});
+
+function getRandomColor() {
+  return '#' + Math.floor(Math.random()*16777215).toString(16);
 }
 
-// funció per generar un color aleatori
-
-function randomRGB() {
-  return `rgb(${random(0, 255)},${random(0, 255)},${random(0, 255)})`;
-}
