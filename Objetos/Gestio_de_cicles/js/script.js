@@ -1,16 +1,9 @@
-let llistatCicles = [];
+import { Modul } from "./Modul.js";
+import { Cicle } from "./Cicle.js"
 
-class Cicle{//paso1
-    constructor(nom, categoria, numAlumnes, abreviatura) {//paso2
-        this.nom = nom;
-        this.categoria = categoria;
-        this.numAlumnes = numAlumnes;
-        this.abreviatura = abreviatura;
-        this.numEdicions = 0;//paso 3
-        this.lastEditDate = null;
-        this.moduls = [];
-    }
-}
+let llistatCicles = [];
+document.getElementById("btnAfegirCicle").addEventListener("click", afegirCicle);
+document.getElementById("btnAfegirModul").addEventListener("click", afegirModul);
 
 
 function afegirCicle(){
@@ -19,14 +12,17 @@ function afegirCicle(){
     let numAlumnes = document.getElementById("cicle_alumnes").value;
     let abreviatura = document.getElementById("cicle_abr").value;
 
-    let cicle = {nom: nom, categoria: categoria, numAlumnes: numAlumnes, abreviatura: abreviatura}
+    let cicle = new Cicle(nom, categoria, numAlumnes, abreviatura);
     console.log(cicle);
 
     if(document.getElementById("editCicle").value === "-1"){
-        //Afegim el cicle al llistat
         llistatCicles.push(cicle);
     }else{
-        //Editar cicle
+        let index = parseInt(document.getElementById("editCicle").value);
+        if (index >= 0 && index < llistatCicles.length) {
+            llistatCicles[index] = cicle; 
+        }
+        netejarFormularis();
 
     }
     
@@ -47,8 +43,10 @@ function afegirModul(){
     let modul_nom = document.getElementById("modul_nom").value;
     let modul_num = document.getElementById("modul_num").value;
     let modul_hores = document.getElementById("modul_hores").value;
+    let cicle2 =  llistatCicles[cicle];
 
-    let modul = {cicle: cicle, nom: modul_nom, num: modul_num, hores: modul_hores}
+    let modul = new Modul(modul_nom, modul_num, modul_hores);
+    cicle2.addModul(modul);
     console.log(modul);
 
     //Printem la llista
@@ -67,15 +65,20 @@ function printLlistat (llistat){
                     <h6 class="text-gray-700">${element.categoria}</h6>
                     <p class="font-normal text-gray-700">Num d'alumnes: ${element.numAlumnes}</p>
 
-                    <button type="button" onClick="removeCicle(${index})" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Eliminar</button>
-                    <button type="button" onClick="editCicle(${index})" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Editar</button>
-                    <button type="button" onClick="calculHores(${index})" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Càlcul hores</button>
+                    <button type="button" id="btnRemoveCicle_${index}" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Eliminar</button>
+                    <button type="button" id="btnEditCicle_${index}" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Editar</button>
+                    <button type="button" id="btnCalculHores_${index}" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2">Càlcul hores</button>
 
 
                 </div>`;
     });
 
     document.getElementById("llistat").innerHTML=str;
+    llistat.forEach(function(element, index){
+        document.getElementById(`btnRemoveCicle_${index}`).addEventListener("click", function(){removeCicle(index)});
+        document.getElementById(`btnEditCicle_${index}`).addEventListener("click", function(){editCicle(index)});
+        document.getElementById(`btnCalculHores_${index}`).addEventListener("click", function(){calculateHours(index)}); 
+    })
 }
 
 //Funció per actualitzar el selector de cicles cada vegada que afegim un cicle
@@ -92,7 +95,10 @@ function actualitzarSelector(){
 
 //Funció per eliminar un cicle
 function removeCicle(i){
-
+    llistatCicles.splice(i, 1);
+    printLlistat(llistatCicles);
+    actualitzarSelector();
+    netejarFormularis();
 }
 
 //Funció per editar un cicle
@@ -116,4 +122,14 @@ function netejarFormularis(){
     for (let i=0; i < selects.length; i++) {
         selects[i].value = 0;
     }
+}
+
+function calculateHours(i) {
+    let totalHours = 0;
+    let ciclo= llistatCicles[i];
+    let moduls=ciclo.moduls;
+    for (const modul of moduls) {
+        totalHours += parseInt(modul.modulHores);
+    }
+    alert("horas totales: " + totalHours);
 }
